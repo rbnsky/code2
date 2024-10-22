@@ -5,7 +5,7 @@ class CanvasAnimation {
   private leftLineHeight: number;
   private rightLineHeight: number;
   private mountainHeight: number;
-  private readonly squareSize: number = 30; // square size
+  private readonly squareSize: number = 30; // Square size
   private readonly lineThickness: number = 5; // Line thickness
   private readonly lineLength: number = 200; // Line length
 
@@ -31,7 +31,7 @@ class CanvasAnimation {
   // Resize canvas 
  
   private resize(): void {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr:number = window.devicePixelRatio || 1;
       this.canvas.width = window.innerWidth * dpr;
       this.canvas.height = window.innerHeight * dpr;
       this.canvas.style.width = `${window.innerWidth}px`;
@@ -57,7 +57,7 @@ class CanvasAnimation {
   //Draw square 
   
   private drawSquare(x: number, y: number): void {
-      const halfSize = this.squareSize / 2;
+      const halfSize:number = this.squareSize / 2;
       this.ctx.strokeStyle = 'white';
       this.ctx.lineWidth = this.lineThickness;
       this.ctx.fillStyle = 'black';
@@ -71,15 +71,15 @@ class CanvasAnimation {
   
   // Draws the mountain using a quadratic curve
   private drawMountain(): void {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      const width:number = window.innerWidth;
+      const height:number = window.innerHeight;
       
       // Calculate mountain base points within center 1/3 of screen
-      const centerThirdStart = width / 3;
-      const centerThirdEnd = (width * 2) / 3;
-      const mountainBaseWidth = centerThirdEnd - centerThirdStart;
-      const mountainLeft = centerThirdStart + (mountainBaseWidth * 0.1); // 10% from start of center third
-      const mountainRight = centerThirdEnd - (mountainBaseWidth * 0.1); // 10% from end of center third
+      const centerThirdStart:number= width / 3;
+      const centerThirdEnd:number = (width * 2) / 3;
+      const mountainBaseWidth:number = centerThirdEnd - centerThirdStart;
+      const mountainLeft:number = centerThirdStart + (mountainBaseWidth * 0.1); // 10% from start of center third
+      const mountainRight:number = centerThirdEnd - (mountainBaseWidth * 0.1); // 10% from end of center third
       
       this.ctx.beginPath();
       this.ctx.moveTo(mountainLeft, height);
@@ -103,8 +103,8 @@ class CanvasAnimation {
   
   // Main drawing function
   private draw(): void {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width:number = window.innerWidth;
+    const height:number = window.innerHeight;
 
     // Clear canvas and set background
     this.ctx.fillStyle = 'black';
@@ -116,14 +116,14 @@ class CanvasAnimation {
 
     // Left line
     this.ctx.beginPath();
-    const leftLineX = width * 0.15;
+    const leftLineX:number = width * 0.15;
     this.ctx.moveTo(leftLineX - this.lineLength/2, height - this.leftLineHeight);
     this.ctx.lineTo(leftLineX + this.lineLength/2, height - this.leftLineHeight);
     this.ctx.stroke();
 
     // Right line
     this.ctx.beginPath();
-    const rightLineX = width * 0.85;
+    const rightLineX:number = width * 0.85;
     this.ctx.moveTo(rightLineX - this.lineLength/2, height - this.rightLineHeight);
     this.ctx.lineTo(rightLineX + this.lineLength/2, height - this.rightLineHeight);
     this.ctx.stroke();
