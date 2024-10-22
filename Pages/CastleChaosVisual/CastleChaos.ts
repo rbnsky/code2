@@ -43,10 +43,10 @@ class CanvasAnimation {
   
   // Generates random heights for lines and mountain within specified ranges
   private generateRandomHeights(): void {
-      const minLineHeight = window.innerHeight * 0.1;
-      const maxLineHeight = window.innerHeight * 0.4;
-      const minMountainHeight = window.innerHeight * 0.8;
-      const maxMountainHeight = window.innerHeight * 0.9;
+      const minLineHeight:number = window.innerHeight * 0.1;
+      const maxLineHeight:number = window.innerHeight * 0.4;
+      const minMountainHeight:number = window.innerHeight * 1.8;
+      const maxMountainHeight:number = window.innerHeight * 1.9;
 
       this.leftLineHeight = Math.random() * (maxLineHeight - minLineHeight) + minLineHeight;
       this.rightLineHeight = Math.random() * (maxLineHeight - minLineHeight) + minLineHeight;
