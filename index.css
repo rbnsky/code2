@@ -19,14 +19,14 @@ header {
 /* Navigation Styles */
 nav {
     background-color: #000000;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
 }
 
 nav h2 {
     font-weight: bold;
     color: #ffffff;
-    margin-bottom: 200px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -38,17 +38,17 @@ nav ul {
 }
 
 nav ul li {
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 nav ul li a {
-    color: #0fe41e;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
 }
 
 nav ul li a:hover {
-    color: #ff0000;
+    color: #bbbbbb;
 
 }
 
