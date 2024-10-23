@@ -1,3 +1,3 @@
 # Code2
-[Code 2 Index](https://rbnsky.github.io/Code2/)
+[Code II Index](https://rbnsky.github.io/CodeII/)
 
