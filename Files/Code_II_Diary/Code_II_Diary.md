@@ -1,5 +1,10 @@
 # Useful Stuff
 
+## JSON.stringify
+
+Use console.log(JSON.stringify(example)) to output the data structure inside the browser console.
+This data can then be used in a .json file.
+
 ## VSCode Shortcuts
 
 **crtl + F2** - Replace all variables of the same name name with a new name.

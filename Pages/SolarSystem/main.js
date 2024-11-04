@@ -75,6 +75,7 @@ var Solarsystem;
         astrobodies1.push(sun);
         astrobodies2.push(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
         astrobodies3.push(earthMoon);
+        console.log(JSON.stringify(sun));
     }
     function update() {
         Solarsystem.crc2.fillStyle = "black";
