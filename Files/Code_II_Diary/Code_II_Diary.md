@@ -6,6 +6,12 @@
 
 **crtl + Shift** - Show aviavle variables.
 
+**crtl + click on class** - Brings you to that class in the code.
+
+**alt + Left Arrow** - Go to where you were before.
+
+**alt + Right Arrow** - Go forward again.
+
 ## VSCode Settings
 
 Auto Format on Save
