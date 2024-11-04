@@ -31,6 +31,15 @@ namespace Solarsystem {
     }
 
     function createPlanets(): void {
+        const response: Response = await fetch("Data.json");
+        const data: Data = await response.json();
+        console.log(data);
+
+        root = (data);
+    }
+
+    /*
+    function createPlanets(): void {
         //create moons
         const earthMoon: Astrobody = new Astrobody([], 1, "lightgray", 12 * 6 * Math.PI / 180, 17, "Earth has 1 moon.");
 
@@ -90,7 +99,7 @@ namespace Solarsystem {
         astrobodies3.push(earthMoon);
         console.log(JSON.stringify(sun))
     }
-
+*/
     function update(): void {
         crc2.fillStyle = "black";
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
