@@ -2,59 +2,54 @@
 var FirstFudge;
 (function (FirstFudge) {
     var f = FudgeCore;
+    console.log(f);
     window.addEventListener("load", start);
-    // create a node as the scene graph
+    // create node
     const node = new f.Node("Node");
-    console.log(node);
     let globalViewport;
-    f.Loop.addEventListener("loopFrame" /* f.EVENT.LOOP_FRAME */, rotateCube);
-    f.Loop.start;
-    function start(_event) {
+    f.Loop.addEventListener("loopFrame" /* f.EVENT.LOOP_FRAME */, moveCube);
+    function start() {
         const canvas = document.querySelector("canvas");
         console.log(canvas);
-        // create MeshCube
-        const cube = new f.MeshCube("Cube");
-        // refer MesH´hCube to the node
-        node.addComponent(new f.ComponentMesh(cube));
-        // rotate meshCube (once)
-        node.getComponent(f.ComponentMesh).mtxPivot.rotate(new f.Vector3(-30, 30, -50));
-        console.log(cube);
-        // create a material with the default texture for testing (I replaced it with a color)
-        //const material = new f.Material("Texture", FudgeCore.ShaderLitTextured);
-        // create lit material
-        const material = new f.Material("Texture", f.ShaderLit);
-        console.log(material);
-        //create ComponentMaterial
-        const cmpmaterial = new f.ComponentMaterial(material);
-        // set ComponentMaterial color (r, g, b, alpha) - all 0-1 (alpha doesnt work if material is lit)
-        cmpmaterial.clrPrimary.set(1, 0.4, 0.7, 1);
-        // refer ComponentMaterial to the node
-        node.addComponent(cmpmaterial);
-        console.log(cmpmaterial);
-        // create a camera
+        //create Cube Mesh
+        const mesh = new f.MeshCube("Cube");
+        console.log(mesh);
+        //create Camera
         const camera = new f.ComponentCamera();
         console.log(camera);
-        // move the camera
-        camera.mtxPivot.translateZ(-3);
-        // rotate the camera (only if we look away from the camera)
+        //create ComponentMesh
+        const cmpMesh = new f.ComponentMesh(mesh);
+        node.addComponent(cmpMesh);
+        //create Material
+        const material = new f.Material("Material", f.ShaderLit);
+        const cmpMaterial = new f.ComponentMaterial(material);
+        cmpMaterial.clrPrimary.set(1, 0.4, 0.7, 1);
+        node.addComponent(cmpMaterial);
+        //Move Camera back
+        camera.mtxPivot.translateZ(-5);
         //camera.mtxPivot.rotateY(180);
-        // create a viewport to manage rendering of the graph to the canvas via the camera
+        //add transform node
+        const cpmTransform = new f.ComponentTransform();
+        node.addComponent(cpmTransform);
+        //node.mtxLocal.translateX(0);
+        console.log(node);
+        //create Viewport
         const viewport = new f.Viewport();
-        viewport.initialize("Viewport", node, camera, canvas);
+        viewport.initialize("viewport", node, camera, canvas);
         viewport.draw();
         globalViewport = viewport;
-        //const cmptransform: f.ComponentTransform = new f.ComponentTransform;
-        //node.addComponent(componenttransform);
-        //node.getComponent(f.ComponentTransform).mtxLocal.rotateY(1);
-        //node.mtxLocal.rotateY(1);
+        console.log(viewport);
+        node.mtxLocal.rotateX(45);
+        node.mtxLocal.rotateZ(45);
         f.Loop.start();
-        f.Time.game.setScale(1);
+        f.Time.game.setScale(0.3);
     }
-    function rotateCube() {
-        const frameTimeInMilliSeconds = f.Loop.timeFrameGame;
-        const frameTimeInSeconds = (frameTimeInMilliSeconds / 1000);
-        const degrees = 360 / frameTimeInMilliSeconds;
-        node.mtxLocal.rotateY(1);
+    function moveCube() {
+        const frameTimeInMiliSeconds = f.Loop.timeFrameGame;
+        const frameTimeInSeconds = (frameTimeInMiliSeconds / 1000);
+        const degrees = 360 * frameTimeInSeconds;
+        node.mtxLocal.rotateY(degrees);
+        //node.mtxLocal.rotateX(degrees);
         globalViewport.draw();
     }
 })(FirstFudge || (FirstFudge = {}));
