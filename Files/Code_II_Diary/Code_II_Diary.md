@@ -7,9 +7,11 @@ This data can then be used in a .json file.
 
 ## VSCode Shortcuts
 
+**shift + alt + f** - Auto format
+
 **crtl + F2** - Replace all variables of the same name name with a new name.
 
-**crtl + Shift** - Show aviavle variables.
+**crtl + shift** - Show aviavle variables.
 
 **crtl + click on class** - Brings you to that class in the code.
 
