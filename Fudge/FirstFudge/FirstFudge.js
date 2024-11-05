@@ -40,7 +40,7 @@ var FirstFudge;
         globalViewport = viewport;
         console.log(viewport);
         node.mtxLocal.rotateX(45);
-        node.mtxLocal.rotateZ(45);
+        //node.mtxLocal.rotateZ(45);
         f.Loop.start();
         f.Time.game.setScale(0.3);
     }
@@ -49,7 +49,8 @@ var FirstFudge;
         const frameTimeInSeconds = (frameTimeInMiliSeconds / 1000);
         const degrees = 360 * frameTimeInSeconds;
         node.mtxLocal.rotateY(degrees);
-        //node.mtxLocal.rotateX(degrees);
+        node.mtxLocal.rotateX(degrees * 2);
+        node.mtxLocal.rotateX(degrees / 2);
         globalViewport.draw();
     }
 })(FirstFudge || (FirstFudge = {}));
