@@ -7,8 +7,8 @@ var FirstFudge;
     // Defer, but inside typescript
     window.addEventListener("load", start);
     // Create Nodes
-    const node = new f.Node("Node");
-    const nodeGround = new f.Node("Ground");
+    const nodeCube = new f.Node("NodeCube");
+    const nodeGround = new f.Node("NodeGround");
     let Viewport;
     function start() {
         const canvas = document.querySelector("canvas");
@@ -19,24 +19,25 @@ var FirstFudge;
         console.log(mesh);
         // Create ComponentMesh
         const cmpMesh = new f.ComponentMesh(mesh);
-        node.addComponent(cmpMesh);
+        nodeCube.addComponent(cmpMesh);
         // Create Cube Material
         const material = new f.Material("Material", f.ShaderLit);
         const cmpMaterial = new f.ComponentMaterial(material);
         cmpMaterial.clrPrimary.set(1, 0.4, 0.7, 1);
-        node.addComponent(cmpMaterial);
+        nodeCube.addComponent(cmpMaterial);
         // Add transform node
         const cmpTransform = new f.ComponentTransform();
-        node.addComponent(cmpTransform);
-        console.log(node);
+        nodeCube.addComponent(cmpTransform);
+        console.log(nodeCube);
         // Ground ------------------------------------------------------------
         const meshGround = new f.MeshQuad("Ground");
         const cmpMeshGround = new f.ComponentMesh(meshGround);
         nodeGround.addComponent(cmpMeshGround);
-        const mtrGround = new f.Material("Ground", f.ShaderLit);
+        const mtrGround = new f.Material("Ground", f.ShaderLitTextured);
         const cmpmtrGround = new f.ComponentMaterial(mtrGround);
-        cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
+        //cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
         nodeGround.addComponent(cmpmtrGround);
+        nodeGround.addChild(nodeCube);
         // Camera ------------------------------------------------------------
         // Create Camera
         const camera = new f.ComponentCamera();
@@ -47,7 +48,7 @@ var FirstFudge;
         //camera.mtxPivot.rotateY(180);
         // Create Viewport
         const viewport = new f.Viewport();
-        viewport.initialize("viewport", node, camera, canvas);
+        viewport.initialize("viewport", nodeGround, camera, canvas);
         viewport.draw();
         Viewport = viewport;
         console.log(viewport);
@@ -59,9 +60,9 @@ var FirstFudge;
     //const frameTimeInMilliSeconds: number = f.Loop.timeFrameGame;
     //const frameTimeInSeconds: number = (frameTimeInMilliSeconds / 1000);
     //onst degrees: number = 360 * frameTimeInSeconds;
-    //node.mtxLocal.rotateY(degrees);
-    //node.mtxLocal.rotateX(degrees * 2);
-    //node.mtxLocal.rotateX(degrees / 2);
+    //nodeCube.mtxLocal.rotateY(degrees);
+    //nodeCube.mtxLocal.rotateX(degrees * 2);
+    //nodeCube.mtxLocal.rotateX(degrees / 2);
     //Viewport.draw();
     //}
     function update() {
@@ -71,14 +72,14 @@ var FirstFudge;
         const frametimeInSeconds = (frametimeInMilliSeconds / 1000);
         // Controls
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.W]))
-            node.mtxLocal.translateZ(tSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.translateZ(tSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.S]))
-            node.mtxLocal.translateZ(-tSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.translateZ(-tSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A]))
-            node.mtxLocal.rotateY(rSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.rotateY(rSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D]))
-            node.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
-        Viewport.camera.mtxPivot.lookAt(node.mtxWorld.translation);
+            nodeCube.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
+        Viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation);
         Viewport.draw();
     }
 })(FirstFudge || (FirstFudge = {}));

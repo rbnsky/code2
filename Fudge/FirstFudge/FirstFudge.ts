@@ -8,8 +8,8 @@ namespace FirstFudge {
     window.addEventListener("load", start);
 
     // Create Nodes
-    const node: f.Node = new f.Node("Node");
-    const nodeGround: f.Node = new f.Node("Ground");
+    const nodeCube: f.Node = new f.Node("NodeCube");
+    const nodeGround: f.Node = new f.Node("NodeGround");
     let Viewport: f.Viewport;
 
     function start(): void {
@@ -24,18 +24,18 @@ namespace FirstFudge {
 
         // Create ComponentMesh
         const cmpMesh: f.ComponentMesh = new f.ComponentMesh(mesh);
-        node.addComponent(cmpMesh);
+        nodeCube.addComponent(cmpMesh);
 
         // Create Cube Material
         const material: f.Material = new f.Material("Material", f.ShaderLit);
         const cmpMaterial: f.ComponentMaterial = new f.ComponentMaterial(material);
         cmpMaterial.clrPrimary.set(1, 0.4, 0.7, 1);
-        node.addComponent(cmpMaterial);
+        nodeCube.addComponent(cmpMaterial);
 
         // Add transform node
         const cmpTransform: f.ComponentTransform = new f.ComponentTransform();
-        node.addComponent(cmpTransform);
-        console.log(node);
+        nodeCube.addComponent(cmpTransform);
+        console.log(nodeCube);
 
         // Ground ------------------------------------------------------------
 
@@ -44,10 +44,12 @@ namespace FirstFudge {
         const cmpMeshGround: f.ComponentMesh = new f.ComponentMesh(meshGround);
         nodeGround.addComponent(cmpMeshGround);
 
-        const mtrGround: f.Material = new f.Material("Ground", f.ShaderLit);
+        const mtrGround: f.Material = new f.Material("Ground", f.ShaderLitTextured);
         const cmpmtrGround: f.ComponentMaterial = new f.ComponentMaterial(mtrGround);
-        cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
+        //cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
         nodeGround.addComponent(cmpmtrGround);
+
+        nodeGround.addChild(nodeCube);
 
         // Camera ------------------------------------------------------------
 
@@ -62,7 +64,7 @@ namespace FirstFudge {
 
         // Create Viewport
         const viewport: f.Viewport = new f.Viewport();
-        viewport.initialize("viewport", node, camera, canvas);
+        viewport.initialize("viewport", nodeGround, camera, canvas);
         viewport.draw();
         Viewport = viewport;
         console.log(viewport);
@@ -78,9 +80,9 @@ namespace FirstFudge {
     //const frameTimeInSeconds: number = (frameTimeInMilliSeconds / 1000);
     //onst degrees: number = 360 * frameTimeInSeconds;
 
-    //node.mtxLocal.rotateY(degrees);
-    //node.mtxLocal.rotateX(degrees * 2);
-    //node.mtxLocal.rotateX(degrees / 2);
+    //nodeCube.mtxLocal.rotateY(degrees);
+    //nodeCube.mtxLocal.rotateX(degrees * 2);
+    //nodeCube.mtxLocal.rotateX(degrees / 2);
     //Viewport.draw();
 
     //}
@@ -93,15 +95,15 @@ namespace FirstFudge {
 
         // Controls
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.W]))
-            node.mtxLocal.translateZ(tSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.translateZ(tSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.S]))
-            node.mtxLocal.translateZ(-tSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.translateZ(-tSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A]))
-            node.mtxLocal.rotateY(rSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.rotateY(rSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D]))
-            node.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
+            nodeCube.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
 
-        Viewport.camera.mtxPivot.lookAt(node.mtxWorld.translation);
+        Viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation,);
 
         Viewport.draw();
     }
