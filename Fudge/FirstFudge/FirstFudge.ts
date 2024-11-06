@@ -10,7 +10,7 @@ namespace FirstFudge {
     // Create Nodes
     const nodeCube: f.Node = new f.Node("NodeCube");
     const nodeGround: f.Node = new f.Node("NodeGround");
-    let Viewport: f.Viewport;
+    let viewport: f.Viewport;
 
     function start(): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
@@ -49,7 +49,9 @@ namespace FirstFudge {
         //cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
         nodeGround.addComponent(cmpmtrGround);
 
-        nodeGround.addChild(nodeCube);
+        // nodeGround.addChild(nodeCube);
+
+        console.log(nodeGround);
 
         // Camera ------------------------------------------------------------
 
@@ -58,15 +60,14 @@ namespace FirstFudge {
         console.log(camera);
 
         // Move Camera
-        camera.mtxPivot.translateZ(-15);
+        camera.mtxPivot.translateZ(15);
         camera.mtxPivot.translateY(10);
-        //camera.mtxPivot.rotateY(180);
+        camera.mtxPivot.rotateY(180);
 
-        // Create Viewport
-        const viewport: f.Viewport = new f.Viewport();
-        viewport.initialize("viewport", nodeGround, camera, canvas);
+        // Create viewport
+        viewport = new f.Viewport();
+        viewport.initialize("Viewport", nodeGround, camera, canvas);
         viewport.draw();
-        Viewport = viewport;
         console.log(viewport);
 
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
@@ -75,17 +76,16 @@ namespace FirstFudge {
 
     }
 
-    //function moveCube(): void {
-    //const frameTimeInMilliSeconds: number = f.Loop.timeFrameGame;
-    //const frameTimeInSeconds: number = (frameTimeInMilliSeconds / 1000);
-    //onst degrees: number = 360 * frameTimeInSeconds;
-
-    //nodeCube.mtxLocal.rotateY(degrees);
-    //nodeCube.mtxLocal.rotateX(degrees * 2);
-    //nodeCube.mtxLocal.rotateX(degrees / 2);
-    //Viewport.draw();
-
-    //}
+    /*
+    function moveCube(): void {
+    const frameTimeInMilliSeconds: number = f.Loop.timeFrameGame;
+    const frameTimeInSeconds: number = (frameTimeInMilliSeconds / 1000);
+    onst degrees: number = 360 * frameTimeInSeconds;
+    nodeCube.mtxLocal.rotateY(degrees);
+    nodeCube.mtxLocal.rotateX(degrees * 2);
+    nodeCube.mtxLocal.rotateX(degrees / 2);
+    }
+    */
 
     function update(): void {
         const tSpeed: number = 3 / 1; //units per seconds
@@ -103,9 +103,9 @@ namespace FirstFudge {
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D]))
             nodeCube.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
 
-        Viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation,);
+        viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation,);
 
-        Viewport.draw();
+        viewport.draw();
     }
 
 }
