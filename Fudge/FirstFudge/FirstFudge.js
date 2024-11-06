@@ -6,29 +6,38 @@ var FirstFudge;
     console.log(f);
     // Defer, but inside typescript
     window.addEventListener("load", start);
-    // Create node
+    // Create Nodes
     const node = new f.Node("Node");
+    const nodeGround = new f.Node("Ground");
     let Viewport;
     function start() {
         const canvas = document.querySelector("canvas");
         console.log(canvas);
-        // Create Cube Mesh
+        // Cube ------------------------------------------------------------
+        // Create MeshCube
         const mesh = new f.MeshCube("Cube");
         console.log(mesh);
         // Create ComponentMesh
         const cmpMesh = new f.ComponentMesh(mesh);
         node.addComponent(cmpMesh);
-        // Create Material
+        // Create Cube Material
         const material = new f.Material("Material", f.ShaderLit);
         const cmpMaterial = new f.ComponentMaterial(material);
         cmpMaterial.clrPrimary.set(1, 0.4, 0.7, 1);
         node.addComponent(cmpMaterial);
         // Add transform node
-        const cpmTransform = new f.ComponentTransform();
-        node.addComponent(cpmTransform);
-        //node.mtxLocal.translateX(0);
+        const cmpTransform = new f.ComponentTransform();
+        node.addComponent(cmpTransform);
         console.log(node);
-        // Create ground
+        // Ground ------------------------------------------------------------
+        const meshGround = new f.MeshQuad("Ground");
+        const cmpMeshGround = new f.ComponentMesh(meshGround);
+        nodeGround.addComponent(cmpMeshGround);
+        const mtrGround = new f.Material("Ground", f.ShaderLit);
+        const cmpmtrGround = new f.ComponentMaterial(mtrGround);
+        cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
+        nodeGround.addComponent(cmpmtrGround);
+        // Camera ------------------------------------------------------------
         // Create Camera
         const camera = new f.ComponentCamera();
         console.log(camera);
@@ -60,7 +69,7 @@ var FirstFudge;
         const rSpeed = 360 / 3; //degrees per seconds
         const frametimeInMilliSeconds = f.Loop.timeFrameGame;
         const frametimeInSeconds = (frametimeInMilliSeconds / 1000);
-        //
+        // Controls
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.W]))
             node.mtxLocal.translateZ(tSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.S]))

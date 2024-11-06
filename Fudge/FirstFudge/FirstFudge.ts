@@ -7,15 +7,18 @@ namespace FirstFudge {
     // Defer, but inside typescript
     window.addEventListener("load", start);
 
-    // Create node
+    // Create Nodes
     const node: f.Node = new f.Node("Node");
+    const nodeGround: f.Node = new f.Node("Ground");
     let Viewport: f.Viewport;
 
     function start(): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
         console.log(canvas);
 
-        // Create Cube Mesh
+        // Cube ------------------------------------------------------------
+
+        // Create MeshCube
         const mesh: f.Mesh = new f.MeshCube("Cube");
         console.log(mesh);
 
@@ -23,19 +26,30 @@ namespace FirstFudge {
         const cmpMesh: f.ComponentMesh = new f.ComponentMesh(mesh);
         node.addComponent(cmpMesh);
 
-        // Create Material
+        // Create Cube Material
         const material: f.Material = new f.Material("Material", f.ShaderLit);
         const cmpMaterial: f.ComponentMaterial = new f.ComponentMaterial(material);
         cmpMaterial.clrPrimary.set(1, 0.4, 0.7, 1);
         node.addComponent(cmpMaterial);
 
         // Add transform node
-        const cpmTransform: f.ComponentTransform = new f.ComponentTransform();
-        node.addComponent(cpmTransform);
-        //node.mtxLocal.translateX(0);
+        const cmpTransform: f.ComponentTransform = new f.ComponentTransform();
+        node.addComponent(cmpTransform);
         console.log(node);
 
-        // Create ground
+        // Ground ------------------------------------------------------------
+
+        const meshGround: f.MeshQuad = new f.MeshQuad("Ground");
+
+        const cmpMeshGround: f.ComponentMesh = new f.ComponentMesh(meshGround);
+        nodeGround.addComponent(cmpMeshGround);
+
+        const mtrGround: f.Material = new f.Material("Ground", f.ShaderLit);
+        const cmpmtrGround: f.ComponentMaterial = new f.ComponentMaterial(mtrGround);
+        cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
+        nodeGround.addComponent(cmpmtrGround);
+
+        // Camera ------------------------------------------------------------
 
         // Create Camera
         const camera: f.ComponentCamera = new f.ComponentCamera();
@@ -77,7 +91,7 @@ namespace FirstFudge {
         const frametimeInMilliSeconds: number = f.Loop.timeFrameGame;
         const frametimeInSeconds: number = (frametimeInMilliSeconds / 1000);
 
-        //
+        // Controls
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.W]))
             node.mtxLocal.translateZ(tSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.S]))
@@ -87,7 +101,7 @@ namespace FirstFudge {
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D]))
             node.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
 
-        Viewport.camera.mtxPivot.lookAt(node.mtxWorld.translation)
+        Viewport.camera.mtxPivot.lookAt(node.mtxWorld.translation);
 
         Viewport.draw();
     }
