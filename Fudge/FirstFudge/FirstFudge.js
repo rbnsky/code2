@@ -1,19 +1,19 @@
 "use strict";
 var FirstFudge;
 (function (FirstFudge) {
-    // Import Arguents from FudgeCore
+    // Import from FudgeCore
     var f = FudgeCore;
     console.log(f);
     // Defer, but inside typescript
     window.addEventListener("load", start);
-    // Create Nodes
+    // Nodes
     const nodeCube = new f.Node("NodeCube");
     const nodeGround = new f.Node("NodeGround");
     let viewport;
     function start() {
         const canvas = document.querySelector("canvas");
         console.log(canvas);
-        // Cube ------------------------------------------------------------
+        // Cube
         // Create MeshCube
         const mesh = new f.MeshCube("Cube");
         console.log(mesh);
@@ -25,21 +25,32 @@ var FirstFudge;
         const cmpMaterial = new f.ComponentMaterial(material);
         cmpMaterial.clrPrimary.set(1, 0.4, 0.7, 1);
         nodeCube.addComponent(cmpMaterial);
-        // Add transform node
+        // Scale Cube
+        cmpMesh.mtxPivot.translateY(0.5);
+        cmpMesh.mtxPivot.scaleZ(2);
+        // Add Transform Node
         const cmpTransform = new f.ComponentTransform();
         nodeCube.addComponent(cmpTransform);
         console.log(nodeCube);
-        // Ground ------------------------------------------------------------
+        // Ground
+        // Create Ground
         const meshGround = new f.MeshQuad("Ground");
+        // Create MeshGround
         const cmpMeshGround = new f.ComponentMesh(meshGround);
         nodeGround.addComponent(cmpMeshGround);
-        const mtrGround = new f.Material("Ground", f.ShaderLitTextured);
+        // Create MeshGroundMaterial
+        const mtrGround = new f.Material("Ground", f.ShaderLit);
         const cmpmtrGround = new f.ComponentMaterial(mtrGround);
-        //cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
+        cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
         nodeGround.addComponent(cmpmtrGround);
-        // nodeGround.addChild(nodeCube);
+        // Scale Ground
+        cmpMeshGround.mtxPivot.rotateX(-90);
+        cmpMeshGround.mtxPivot.scaleX(50);
+        cmpMeshGround.mtxPivot.scaleY(50);
+        cmpMeshGround.mtxPivot.scaleZ(10);
+        nodeGround.addChild(nodeCube);
         console.log(nodeGround);
-        // Camera ------------------------------------------------------------
+        // Camera
         // Create Camera
         const camera = new f.ComponentCamera();
         console.log(camera);
@@ -47,7 +58,7 @@ var FirstFudge;
         camera.mtxPivot.translateZ(15);
         camera.mtxPivot.translateY(10);
         camera.mtxPivot.rotateY(180);
-        // Create viewport
+        // Viewport
         viewport = new f.Viewport();
         viewport.initialize("Viewport", nodeGround, camera, canvas);
         viewport.draw();
