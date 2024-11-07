@@ -93,7 +93,7 @@ var FirstFudge;
             nodeCube.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
         const up = f.Vector3.Y();
         viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation);
-        f.Recycler.store(up);
+        f.Recycler.store(up); //Recycler
         viewport.draw();
     }
 })(FirstFudge || (FirstFudge = {}));

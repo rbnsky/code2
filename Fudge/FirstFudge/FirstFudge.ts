@@ -13,6 +13,7 @@ namespace FirstFudge {
     let viewport: f.Viewport;
 
     function start(): void {
+        // Create Canvas
         const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
         console.log(canvas);
 
@@ -119,7 +120,7 @@ namespace FirstFudge {
 
         viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation,);
 
-        f.Recycler.store(up);
+        f.Recycler.store(up); //Recycler
 
         viewport.draw();
     }
