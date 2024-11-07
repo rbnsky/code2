@@ -1,31 +1,35 @@
 "use strict";
 var SolarSystem;
 (function (SolarSystem) {
-    // Import from FudgeCore
     SolarSystem.f = FudgeCore;
-    console.log(SolarSystem.f);
-    // Defer, but inside typescript
     window.addEventListener("load", start);
-    const sun = new SolarSystem.f.Node("Sun");
-    let vewport;
+    let sun;
     let viewport;
-    function start() {
+    let rotationNode, start;
+    () => {
         // Create Canvas
         const canvas = document.querySelector("canvas");
-        // Create Camera
+        // Create & Rotate Camera
         const camera = new SolarSystem.f.ComponentCamera();
-        const earth = new SolarSystem.Body("Earth", 1, "blue");
-        sun.addChild.(earth);
+        camera.mtxPivot.translateZ(180);
+        camera.mtxPivot.translateZ(180);
+        // Create Sun Body
+        sun = new SolarSystem.Body("Sun", 1, 0, "yellow");
+        // Create Earth Body
+        const earth = new SolarSystem.Body("Earth", 1, 2, "blue");
+        let rotationNode = new SolarSystem.f.Node("EarthRotation");
+        let rotationTransform = new SolarSystem.f.ComponentTransform();
+        rotationNode.addComponent(rotationTransform);
+        sun.addChild(earth);
         // Viewport
         viewport = new SolarSystem.f.Viewport();
         viewport.initialize("Viewport", sun, camera, canvas);
         viewport.draw();
-        console.log(viewport);
         SolarSystem.f.Loop.addEventListener("loopFrame" /* f.EVENT.LOOP_FRAME */, update);
         SolarSystem.f.Loop.start();
-        viewport.draw();
-    }
+    };
     function update() {
+        rotationNodeEarth.mtxLocal.rotateY(10);
         viewport.draw();
     }
 })(SolarSystem || (SolarSystem = {}));

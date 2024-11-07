@@ -3,7 +3,7 @@ namespace SolarSystem {
 
         // First static
         private static mesh: f.Mesh = new f.MeshSphere("Body");
-        private static material: f.Material = new f.Material("Body", f.ShaderLitTextured);
+        private static material: f.Material = new f.Material("Body", f.ShaderLit);
 
         // Then public
         //public pos: f.Vector3;
@@ -18,6 +18,8 @@ namespace SolarSystem {
             super(_name);
             this.name = _name;
             this.size = _size;
+            this.rotationNode = new f.Node(_name + "Rotation Node");
+
 
             const tempMat: f.ComponentMaterial = new f.ComponentMaterial(Body.material)
             tempMat.clrPrimary.setCSS(_color)
@@ -25,6 +27,7 @@ namespace SolarSystem {
             this.addComponent(new f.ComponentMesh(Body.mesh));
             this.addComponent(new f.ComponentMaterial(Body.material));
             this.addComponent(new f.ComponentTransform());
+            this.mtxLocal.translateX(_distance);
         }
 
         public setTransforms(_vOrbit: number, _vRotation: number, _distance: number) {

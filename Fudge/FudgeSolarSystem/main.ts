@@ -1,42 +1,47 @@
 namespace SolarSystem {
 
-    // Import from FudgeCore
-    export import f = FudgeCore;
-    console.log(f);
+    export import f = FudgeCore
 
-    // Defer, but inside typescript
     window.addEventListener("load", start);
 
-    const sun: f.Node = new f.Node("Sun");
-    let vewport: f.Viewport;
-
-
-
+    let sun: Body
     let viewport: f.Viewport;
+    let rotationNode:
 
-    function start(): void {
-        // Create Canvas
-        const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
-        // Create Camera
-        const camera: f.ComponentCamera = new f.ComponentCamera();
+        function start(): void {
+            // Create Canvas
+            const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
+            // Create & Rotate Camera
+            const camera: f.ComponentCamera = new f.ComponentCamera();
+            camera.mtxPivot.translateZ(180);
+            camera.mtxPivot.translateZ(180);
+
+            // Create Sun Body
+            sun = new Body("Sun", 1, 0, "yellow");
+
+            // Create Earth Body
+            const earth: Body = new Body("Earth", 1, 2, "blue");
+
+            let rotationNode: f.Node = new f.Node("EarthRotation")
+            let rotationTransform: f.ComponentTransform = new f.ComponentTransform();
+            rotationNode.addComponent(rotationTransform)
+
+            sun.addChild(earth)
 
 
-        const earth: Body = new Body("Earth", 1, "blue");
-        sun.addChild.(earth)
+            // Viewport
+            viewport = new f.Viewport();
+            viewport.initialize("Viewport", sun, camera, canvas);
+            viewport.draw();
 
-        // Viewport
-        viewport = new f.Viewport();
-        viewport.initialize("Viewport", sun, camera, canvas);
-        viewport.draw();
-        console.log(viewport);
+            f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
+            f.Loop.start();
 
-        f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
-        f.Loop.start();
-
-        viewport.draw();
-    }
+        }
 
     function update(): void {
+
+        rotationNodeEarth.mtxLocal.rotateY(10)
 
         viewport.draw();
     }
