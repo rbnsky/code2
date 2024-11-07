@@ -16,7 +16,7 @@ namespace FirstFudge {
         const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
         console.log(canvas);
 
-        // Cube
+        // CUBE
 
         // Create MeshCube
         const mesh: f.Mesh = new f.MeshCube("Cube");
@@ -41,7 +41,7 @@ namespace FirstFudge {
         nodeCube.addComponent(cmpTransform);
         console.log(nodeCube);
 
-        // Ground
+        // GROUND
 
         // Create Ground
         const meshGround: f.MeshQuad = new f.MeshQuad("Ground");
@@ -51,7 +51,7 @@ namespace FirstFudge {
         nodeGround.addComponent(cmpMeshGround);
 
         // Create MeshGroundMaterial
-        const mtrGround: f.Material = new f.Material("Ground", f.ShaderLit);
+        const mtrGround: f.Material = new f.Material("Ground", f.ShaderLitTextured);
         const cmpmtrGround: f.ComponentMaterial = new f.ComponentMaterial(mtrGround);
         cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
         nodeGround.addComponent(cmpmtrGround);
@@ -65,7 +65,7 @@ namespace FirstFudge {
         nodeGround.addChild(nodeCube);
         console.log(nodeGround);
 
-        // Camera
+        // CAMERA
 
         // Create Camera
         const camera: f.ComponentCamera = new f.ComponentCamera();
@@ -115,7 +115,11 @@ namespace FirstFudge {
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D]))
             nodeCube.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
 
+        const up: f.Vector3 = f.Vector3.Y();
+
         viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation,);
+
+        f.Recycler.store(up);
 
         viewport.draw();
     }

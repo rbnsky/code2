@@ -13,7 +13,7 @@ var FirstFudge;
     function start() {
         const canvas = document.querySelector("canvas");
         console.log(canvas);
-        // Cube
+        // CUBE
         // Create MeshCube
         const mesh = new f.MeshCube("Cube");
         console.log(mesh);
@@ -32,14 +32,14 @@ var FirstFudge;
         const cmpTransform = new f.ComponentTransform();
         nodeCube.addComponent(cmpTransform);
         console.log(nodeCube);
-        // Ground
+        // GROUND
         // Create Ground
         const meshGround = new f.MeshQuad("Ground");
         // Create MeshGround
         const cmpMeshGround = new f.ComponentMesh(meshGround);
         nodeGround.addComponent(cmpMeshGround);
         // Create MeshGroundMaterial
-        const mtrGround = new f.Material("Ground", f.ShaderLit);
+        const mtrGround = new f.Material("Ground", f.ShaderLitTextured);
         const cmpmtrGround = new f.ComponentMaterial(mtrGround);
         cmpmtrGround.clrPrimary.set(0.2, 1, 0.7, 1);
         nodeGround.addComponent(cmpmtrGround);
@@ -50,7 +50,7 @@ var FirstFudge;
         cmpMeshGround.mtxPivot.scaleZ(10);
         nodeGround.addChild(nodeCube);
         console.log(nodeGround);
-        // Camera
+        // CAMERA
         // Create Camera
         const camera = new f.ComponentCamera();
         console.log(camera);
@@ -91,7 +91,9 @@ var FirstFudge;
             nodeCube.mtxLocal.rotateY(rSpeed * frametimeInSeconds);
         if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D]))
             nodeCube.mtxLocal.rotateY(-rSpeed * frametimeInSeconds);
+        const up = f.Vector3.Y();
         viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation);
+        f.Recycler.store(up);
         viewport.draw();
     }
 })(FirstFudge || (FirstFudge = {}));
