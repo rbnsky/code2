@@ -7,6 +7,8 @@ namespace SolarSystem {
     // Defer, but inside typescript
     window.addEventListener("load", start);
 
+    const sun: f.Node = new f.Node("Sun");
+    let vewport: f.Viewport;
 
 
 
@@ -15,22 +17,17 @@ namespace SolarSystem {
     function start(): void {
         // Create Canvas
         const canvas: HTMLCanvasElement = document.querySelector("canvas")!;
-        console.log(canvas);
-
-        // CAMERA
-
         // Create Camera
         const camera: f.ComponentCamera = new f.ComponentCamera();
-        console.log(camera);
 
-        // Move Camera
-        camera.mtxPivot.translateZ(15);
-        camera.mtxPivot.translateY(10);
-        camera.mtxPivot.rotateY(180);
+
+        const earth: Body = new Body("Earth", 1, "blue");
+        sun.addChild.(earth)
+
 
         // Viewport
         viewport = new f.Viewport();
-        viewport.initialize("Viewport", nodeGround, camera, canvas);
+        viewport.initialize("Viewport", sun, camera, canvas);
         viewport.draw();
         console.log(viewport);
 
@@ -41,12 +38,6 @@ namespace SolarSystem {
     }
 
     function update(): void {
-
-        const up: f.Vector3 = f.Vector3.Y();
-
-        viewport.camera.mtxPivot.lookAt(nodeCube.mtxWorld.translation,);
-
-        f.Recycler.store(up); //Recycler
 
         viewport.draw();
     }
