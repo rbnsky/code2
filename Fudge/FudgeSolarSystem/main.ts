@@ -24,7 +24,6 @@ namespace SolarSystem {
         const earth: Body = new Body("Earth", 1, "blue");
         sun.addChild.(earth)
 
-
         // Viewport
         viewport = new f.Viewport();
         viewport.initialize("Viewport", sun, camera, canvas);

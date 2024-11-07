@@ -19,6 +19,9 @@ namespace SolarSystem {
             this.name = _name;
             this.size = _size;
 
+            const tempMat: f.ComponentMaterial = new f.ComponentMaterial(Body.material)
+            tempMat.clrPrimary.setCSS(_color)
+
             this.addComponent(new f.ComponentMesh(Body.mesh));
             this.addComponent(new f.ComponentMaterial(Body.material));
             this.addComponent(new f.ComponentTransform());
