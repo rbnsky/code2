@@ -11,6 +11,7 @@ var FirstFudge;
     const nodeGround = new f.Node("NodeGround");
     let viewport;
     function start() {
+        // Create Canvas
         const canvas = document.querySelector("canvas");
         console.log(canvas);
         // CUBE

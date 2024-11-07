@@ -20,5 +20,5 @@ var SolarSystem;
     SolarSystem.Body = Body;
     this.vOrbit = _vOrbit / 1000 * (Math.PI / 180);
     this.vRotation = _vRotation / 1000 * (Math.PI / 180);
-    this.distance = _Distance;
+    this.distance = _distance;
 })(SolarSystem || (SolarSystem = {}));
